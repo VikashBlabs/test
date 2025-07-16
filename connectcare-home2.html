@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectCare - Find Senior Care & Living Options</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Animate On Scroll (AOS) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        // Custom Tailwind CSS Configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': {
+                            'light': '#EBF8FF',
+                            'DEFAULT': '#63B3ED',
+                            'dark': '#3182CE',
+                        },
+                        'brand-teal': {
+                            'light': '#E6FFFA',
+                            'DEFAULT': '#4FD1C5',
+                            'dark': '#38B2AC',
+                        },
+                        'brand-orange': '#ED8936', // Slightly softer orange
+                        'brand-gray': {
+                            '50': '#F8F7F5',
+                            '100': '#EDF2F7',
+                            '200': '#E2E8F0',
+                            '700': '#4A5568',
+                            '800': '#2D3748',
+                            '900': '#1A202C',
+                        },
+                        'text-primary': '#1A202C', // Darker for better contrast
+                        'text-secondary': '#4A5568',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* .bg-brand-teal-light {
+            background-color: rgb(255 219 188) !important;
+        }
+        .text-brand-teal-dark {
+            color: rgb(237 137 54) !important;
+        }
+        .text-blue-500 {
+            color: rgb(237 137 54) !important;
+        }
+        .border-brand-teal {
+            border-color: rgb(255 117 3) !important;
+        }
+        .bg-brand-blue-light {
+            --tw-bg-opacity: 1;
+            background-color: rgb(255 198 151 / 45%) !important;
+        }
+        .bg-brand-blue-dark {
+            background-color: rgb(237 137 54) !important;
+        } */
+        .text-brand-blue-dark {
+            color: rgb(81 91 111) !important;
+        }
+        .text-brand-blue {
+            --tw-text-opacity: 1;
+            color: rgb(237 137 54) !important;
+        }
+        @media (min-width: 1536px) {
+            .container{     
+                max-width: 1280px !important;
+            }
+        }
+        @media (min-width: 1024px) {
+            /* .hero-content{
+                padding-left: 20% !important;
+            } */
+        }
+        @media (max-width: 1024px) {
+            .hero-content{
+                padding: 5rem !important;
+            }
+        }
+        .hero-container {
+            max-width: 100% !important;
+        }
+        /* Custom Styles for a polished, responsive experience */
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #F8F7F5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            animation: slide-down 0.2s ease-out;
+        }
+        .dropdown-menu { display: none; }
+        @keyframes slide-down {
+            0% { opacity: 0; transform: translateY(-5px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .hero-image-clip { clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%); }
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .hero-image-clip { clip-path: none; height: 400px; }
+            .hero-content { text-align: center; }
+        }
+        @media (max-width: 767px) { .hero-image-clip { height: 300px; } }
+        .price-blur {
+            filter: blur(5px);
+            user-select: none;
+            transition: filter 0.3s ease-in-out;
+        }
+        .community-card:hover .price-blur { filter: blur(0); }
+        .community-card .get-pricing-btn {
+            opacity: 0;
+            transform: translateY(5px);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .community-card:hover .get-pricing-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #website_logo {
+            width: 150px;
+        }
+        .bg-brand-gray-900 {
+            background-color: rgb(25, 42, 86) !important;
+        }
+        .w-24{
+                width: auto !important;
+            }
+        .rounded-full {
+            border-radius: 12px !important;
+        }
+        .member-content{
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+        }
+        .member-content-review{
+            padding: 10px;
+            margin: 10px 0;
+            /*outline: 4px solid #edf2f7;*/
+            border-radius: 5px;
+            background-color: #ebf8ff;
+        }
+        .box-last-content{
+            display: none !important;
+        }
+        /* .fa-map-marker-custom {
+            color: orangered;
+        } */
+        .bg-brand-blue-dark-custom {
+            background-color: rgb(56 178 172) !important;
+        }
+        .footer_menu li span , .footer_menu  li ul li a, .footer_menu li a, .footer_menu-1 ul li span, .footer_menu-1 ul li a{
+            color: #fff;
+        }
+        .footer_menu  li ul li a{
+            font-size: 13.5px;
+        }
+        .contact{
+            background: #2ab27b;
+            padding: 9px 9px;
+            border-radius: 22px;
+            margin-right: 6px;
+        }
+        .facebook{
+            background: #3b5998;
+            padding: 10px 15px;
+            border-radius: 22px;
+        }
+        .bold{
+            font-size: 18px;
+            font-weight:700;
+        }
+        ::marker{
+            display: none !important;
+        }
+        .font-sm {
+            font-size: 11.5px !important;
+        }
+    </style>
+</head>
+<body class="text-text-primary overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-4 lg:px-6 h-20 flex items-center justify-between">
+            <!-- Left Cluster: Mobile Menu Toggle + Logo -->
+            <div class="flex items-center">
+                <button id="mobile-menu-button" class="lg:hidden mr-3 p-2 rounded-md hover:bg-gray-100" aria-label="Open menu">
+                    <i class="fa-solid fa-bars text-xl text-brand-teal-dark"></i>
+                </button>
+                <a href="#" class="text-3xl font-extrabold text-brand-teal-dark">
+                    <!-- ConnectCare -->
+                    <img id="website_logo" width="899" height="408" src="https://www.connectcare.ie/images/LogoFINAL.png" alt="ConnectCare">
+                </a>
+            </div>
+
+            <!-- Center Cluster: Main Navigation (Desktop) -->
+            <div class="hidden lg:flex items-center space-x-2">
+                <a href="#" class="text-text-secondary member-content hover:text-brand-teal-dark font-semibold px-4 py-2 rounded-md transition-colors">Mobility</a>
+                <a href="#" class="text-text-secondary member-content hover:text-brand-teal-dark font-semibold px-4 py-2 rounded-md transition-colors">Homecare</a>
+                <a href="#" class="text-text-secondary member-content hover:text-brand-teal-dark font-semibold px-4 py-2 rounded-md transition-colors">Nursing Homes</a>
+                 <div class="dropdown relative">
+                    <a href="#" class="text-text-secondary member-content hover:text-brand-teal-dark font-semibold px-4 py-2 rounded-md transition-colors">Support & Grants <i class="fa-solid fa-chevron-down text-xs ml-1"></i></a>
+                     <div class="dropdown-menu absolute left-0 mt-2 w-56 bg-white rounded-md shadow-xl z-20 border border-gray-100">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-teal-dark">Advice & Support Organisations</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-teal-dark">Grants & Financial Assistance</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-teal-dark">Caregiving Guides</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Cluster: Contact Info -->
+            <div class="hidden lg:flex items-center">
+                <a href="tel:1-800-555-0123" class="font-bold text-brand-blue-dark mr-4 hover:text-brand-blue transition-colors">
+                    <i class="fa-solid fa-phone mr-2"></i>(800) 555-0123
+                </a>
+                <a href="#" class="bg-brand-orange text-white font-bold py-2 px-5 rounded-md hover:bg-opacity-90 transition-all shadow-sm hover:shadow-md bg-brand-blue-dark-custom">Contact Us</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Sidebar -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden" aria-hidden="true"></div>
+    <div id="mobile-menu" class="fixed top-0 left-0 h-full w-72 bg-white z-50 transform -translate-x-full transition-transform duration-300 ease-in-out">
+        <div class="p-5">
+            <button id="close-menu-button" class="absolute top-4 right-4 text-3xl text-gray-500 hover:text-gray-800" aria-label="Close menu">&times;</button>
+            <h3 class="text-2xl font-bold text-brand-teal-dark mb-5">Menu</h3>
+            <a href="#" class="block py-2.5 text-lg text-text-secondary member-content hover:text-brand-teal-dark">Mobility</a>
+            <a href="#" class="block py-2.5 text-lg text-text-secondary member-content hover:text-brand-teal-dark">Homecare</a>
+            <a href="#" class="block py-2.5 text-lg text-text-secondary member-content hover:text-brand-teal-dark">Nursing Homes</a>
+            <a href="#" class="block py-2.5 text-lg text-text-secondary member-content hover:text-brand-teal-dark">Advice & Support</a>
+            <a href="#" class="block py-2.5 text-lg text-text-secondary member-content hover:text-brand-teal-dark">Grants & Financial Assistance</a>
+            <hr class="my-4">
+            <a href="#" class="block py-2.5 text-lg text-text-secondary member-content hover:text-brand-teal-dark">Contact Us</a>
+            <a href="tel:1-800-555-0123" class="block py-2.5 text-lg text-text-secondary member-content hover:text-brand-teal-dark">(800) 555-0123</a>
+        </div>
+    </div>
+
+    <main>
+
+        <!-- Hero Section -->
+        <!-- <section class="bg-brand-gray-50">
+            <div class="container mx-auto hero-container">
+                <div class="flex flex-col-reverse lg:flex-row">
+                    <div class="w-full lg:w-1/2 flex items-center">
+                         <div class="hero-content w-full py-12 lg:py-24 px-6 lg:pl-12 lg:pr-6" data-aos="fade-right">
+                            <h1 class="text-4xl lg:text-5xl font-extrabold text-text-primary leading-tight">We've helped thousands of families find care.</h1>
+                            <p class="mt-4 text-lg text-text-secondary member-content">Whether you're looking for senior living, homecare, or mobility solutions, ConnectCare is here to make the process easier — for free.</p>
+                            <hr class="my-8">
+                            <form>
+                                <label for="location-search" class="font-bold text-lg text-gray-800 mb-2 block">Where are you looking for care?</label>
+                                <div class="flex flex-col sm:flex-row gap-2">
+                                    <input type="text" id="location-search" class="w-full form-input px-4 py-3 rounded-md border-gray-300 shadow-sm focus:border-brand-blue-dark focus:ring focus:ring-brand-blue-light focus:ring-opacity-50" placeholder="City, State or Zip">
+                                    <button type="submit" class="bg-brand-orange text-white font-bold py-3 px-8 rounded-md hover:bg-opacity-90 transition-all w-full sm:w-auto">Search</button>
+                                </div>
+                                <p class="mt-4 text-text-secondary member-content">Or speak to a Care Advisor now: <a href="tel:1-800-555-0123" class="font-bold text-brand-blue-dark hover:underline">(800) 555-0123</a></p>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-1/2" data-aos="fade-left">
+                        <div class="h-80 lg:h-full w-full hero-image-clip bg-cover bg-center" style="background-image: url('https://www.connectcare.ie/images/pexel-photo-3768131-large.jpeg')"
+                             onerror="this.onerror=null;this.style.backgroundImage='url(\'https://placehold.co/1200x800/e0e0e0/333333?text=Image+Not+Found\')'"></div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <section class="flex flex-col-reverse items-center justify-between lg:flex-row" style="background-color: #e6fffa;">
+            <!-- Text Section -->
+            <!-- <div class="w-full lg:w-1/2 text-center lg:text-center" style="padding: 100px;">
+              <h1 class="font-extrabold leading-tight lg:text-5xl text-4xl text-text-primary mb-1   0  " style="text-align: start;">
+                Connecting Youto the Care and Support You Need
+              </h1>
+              <p class="mt-4 text-lg text-text-secondary member-content">Whether you're looking for senior living, homecare, or mobility solutions, ConnectCare is here to make the process easier — for free.</p>
+              <div class="lg:mx-0 mx-auto relative" style="margin: 0 auto;display: block;">
+                <input type="text" placeholder="Search for" class="w-full py-3 px-5 pr-12 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-400 text-lg" style="/* margin: 0 auto; *//* display: block; */">
+                <button class="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div> -->
+            <div class="hero-content w-full py-12 lg:py-24 px-6 lg:pl-12 lg:pr-6 aos-init aos-animate" data-aos="fade-right" style="width: 50%;padding-left: 10%;">
+                <h1 class="text-4xl lg:text-5xl font-extrabold text-text-primary leading-tight">We've helped thousands of families find care.</h1>
+                <!-- <p class="mt-4 text-lg text-text-secondary member-content">Whether you're looking for senior living, homecare, or mobility solutions    , ConnectCare is here to make the process easier — for free.</p> -->
+                <hr class="my-8">
+                <form>
+                    <!-- <label for="location-search" class="font-bold text-lg text-gray-800 mb-2 block">Where are you looking for care?</label> -->
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="text" id="location-search" class="w-full form-input px-4 py-3 rounded-md border-gray-300 shadow-sm focus:border-brand-blue-dark focus:ring focus:ring-brand-blue-light focus:ring-opacity-50" placeholder="City, State or Zip">
+                        <span class="input-group-btn" style="position: relative;font-size: 0;white-space: nowrap;width: 10%;">
+                                <button class="btn" type="button"><i class="fa fa-search" style="font-size: 20px;color: #666;padding: 20px;background-color: #fff;"></i></button>
+                            </span>
+                    </div>
+                    <!-- <p class="mt-4 text-text-secondary member-content">Or speak to a Care Advisor now: <a href="tel:1-800-555-0123" class="font-bold text-brand-blue-dark hover:underline">(800) 555-0123</a></p> -->
+                </form>
+            </div>
+        
+            <!-- Image Section -->
+            <div class="w-full lg:w-1/2 mb-10 lg:mb-0 flex justify-center">
+              <!-- <img src="https://restaurants.directoryup.com/images/connectcare/conncetcare1_11zon.jpg" alt="Caregiver supporting elderly woman" class="max-w-full h-auto shadow-md"> -->
+              <img src="https://restaurants.directoryup.com/images/connectcare/home-2.jpg" alt="Caregiver supporting elderly woman" class="max-w-full h-auto shadow-md">
+
+            </div>
+        </section>
+        
+        <section class="" style="height: 101px;">
+            <div class="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8" style="position: relative;top: -144px;margin: 0 auto;max-width: 1560px !important;">
+                <!-- Directory Card 1: Mobility -->
+                <a href="https://www.connectcare.ie/product-service-categories" class="block p-8 bg-brand-gray-50 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 aos-init aos-animate bg-white" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center justify-center h-16 w-16 bg-brand-teal-light rounded-full mb-4">
+                        <i class="fa-solid fa-wheelchair-move text-3xl text-brand-teal-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Mobility Products</h3>
+                    <p class="text-text-secondary member-content">Solutions and services to enhance independence and daily living.</p>
+                </a>
+                 <!-- Directory Card 2: Homecare -->
+                <a href="https://www.connectcare.ie/homecare" class="block p-8 bg-brand-gray-50 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 aos-init aos-animate bg-white" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center justify-center h-16 w-16 bg-brand-teal-light rounded-full mb-4">
+                        <i class="fa-solid fa-house-medical text-3xl text-brand-teal-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Homecare Professionals</h3>
+                    <p class="text-text-secondary member-content">Find compassionate and qualified in-home caregivers and health aides.</p>
+                </a>
+                <!-- Directory Card 3: Nursing Homes -->
+                <a href="https://www.connectcare.ie/nursing-home" class="block p-8 bg-brand-gray-50 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 aos-init aos-animate bg-white" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center justify-center h-16 w-16 bg-brand-teal-light rounded-full mb-4">
+                        <i class="fa-solid fa-hospital-user text-3xl text-brand-teal-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Nursing Homes</h3>
+                    <p class="text-text-secondary member-content">Compare and choose the best residential care and assisted living facilities.</p>
+                </a>
+                <!-- Directory Card 4: Advice & Support -->
+                <a href="https://www.connectcare.ie/relevant-organisations" class="block p-8 bg-brand-gray-50 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 aos-init aos-animate bg-white" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex items-center justify-center h-16 w-16 bg-brand-teal-light rounded-full mb-4">
+                        <i class="fa-solid fa-hand-holding-heart text-3xl text-brand-teal-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Advice &amp; Support</h3>
+                    <p class="text-text-secondary member-content">Access expert articles and connect with support organisations.</p>
+                </a>
+                <!-- Directory Card 5: Grants -->
+                <a href="https://www.connectcare.ie/carer-sbenefit" class="block p-8 bg-brand-gray-50 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 aos-init aos-animate bg-white" data-aos="fade-up" data-aos-delay="500">
+                    <div class="flex items-center justify-center h-16 w-16 bg-brand-teal-light rounded-full mb-4">
+                        <i class="fa-solid fa-coins text-3xl text-brand-teal-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Grants &amp; Financial Aid</h3>
+                    <p class="text-text-secondary member-content">Discover financial assistance programs to help cover the costs of care.</p>
+                </a>
+                <!-- CTA Card -->
+                <!-- <div class="p-8 bg-brand-blue-light rounded-xl flex flex-col items-center justify-center text-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="600">
+                     <h3 class="text-xl font-bold text-brand-blue-dark">Not Sure Where to Start?</h3>
+                     <p class="mt-2 text-text-secondary member-content">Our care advisors are here to help guide you for free.</p>
+                     <a href="https://www.connectcare.ie/about/contact" class="mt-4 bg-brand-blue-dark text-white font-bold py-2 px-5 rounded-full hover:bg-brand-blue-dark/90 transition-all">Get Free Advice</a>
+                </div> -->
+            </div>
+        </section>
+
+
+        <!-- Featured Members Section -->
+        <section class="py-16 sm:py-24 bg-brand-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-text-primary">Meet Our Featured Members</h2>
+                    <p class="mt-4 text-lg text-text-secondary member-content max-w-3xl mx-auto">We partner with a diverse range of trusted providers to bring you the best care and mobility solutions.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Member Card 1: Momentum Healthcare -->
+                    <div class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col text-center items-center" data-aos="fade-up" data-aos-delay="100">
+                        <!-- <img src="https://placehold.co/100x100/38B2AC/FFFFFF?text=MH" alt="Momentum Healthcare Logo" class="w-24 h-24 rounded-full mb-4 object-cover shadow-md border-4 border-white"> -->
+                        <img src="https://www.connectcare.ie/logos/profile/limage-115-490-photo.png" alt="Momentum Healthcare Logo" class="w-24 h-24 rounded-full mb-4 object-cover shadow-md border-4 border-white">
+                        <h3 class="text-xl font-bold mb-2 text-text-primary">comfortkeepers</h3>
+                        <p class="text-text-secondary member-content ">Comfort Keepers has been proudly providing home support services across Ireland since 2005. With over 20 years of experience, we deliver care that is trusted by families, recognised by healthcare professionals, and tailored to the needs of each individual.</p>
+                        <a href="https://www.connectcare.ie/ireland/dublin/homecare/comfortkeepers" class="mt-6 font-semibold text-brand-teal-dark hover:underline">View Profile <i class="fa-solid fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                    <!-- Member Card 2: Procon Vehicles -->
+                    <div class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col text-center items-center" data-aos="fade-up" data-aos-delay="200">
+                        <!-- <img src="https://placehold.co/100x100/3182CE/FFFFFF?text=PV" alt="Procon Vehicles Logo" class="w-24 h-24 rounded-full mb-4 object-cover shadow-md border-4 border-white"> -->
+                        <img src="https://www.connectcare.ie/logos/profile/limage-75-179-photo.jpg" alt="Procon Vehicles Logo" class="w-24 h-24 rounded-full mb-4 object-cover shadow-md border-4 border-white">
+                        <h3 class="text-xl font-bold mb-2 text-text-primary">Mobility Assist</h3>
+                        <p class="text-text-secondary member-content ">Welcome to Mobility Assist. Mobility Assist Ireland specialises in the supply, installation and maintenance of all mobility assist products, providing a professional, personable and cost effective service to clients nationwide.</p>
+                        <a href="https://www.connectcare.ie/product-service-categories/mobility-assist" class="mt-6 font-semibold text-brand-teal-dark hover:underline">View Profile <i class="fa-solid fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                    <!-- Member Card 3: Royal Homecare -->
+                    <div class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col text-center items-center" data-aos="fade-up" data-aos-delay="300">
+                        <!-- <img src="https://placehold.co/100x100/ED8936/FFFFFF?text=RH" alt="Royal Homecare Logo" class="w-24 h-24 rounded-full mb-4 object-cover shadow-md border-4 border-white"> -->
+                        <img src="https://www.connectcare.ie/logos/profile/limage-58-214-photo.png" alt="Royal Homecare Logo" class="w-24 h-24 rounded-full mb-4 object-cover shadow-md border-4 border-white">
+                        <h3 class="text-xl font-bold mb-2 text-text-primary">O'Connor Carroll</h3>
+                        <p class="text-text-secondary member-content ">Welcome to O'Connor Carroll. Contact O’Connor Carroll Bathrooms Tiles Stairlifts for further information. O’Connor Carroll Bathrooms Tiles Stairlifts was founded in 2005 based on many years’ experience in bathrooms. We gained a strong reputation among the councils for the high quality of our disabled bathrooms.</p>
+                        <a href="https://www.connectcare.ie/dublin-12/product-service-categories/o-connor-carroll" class="mt-6 font-semibold text-brand-teal-dark hover:underline">View Profile <i class="fa-solid fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                    <!-- Member Card 4: Transport & Mobility Consultants -->
+                    <div class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col text-center items-center" data-aos="fade-up" data-aos-delay="400">
+                        <!-- <img src="https://placehold.co/100x100/4A5568/FFFFFF?text=TMC" alt="Transport & Mobility Consultants Logo" class="w-24 h-24 rounded-full mb-4 object-cover shadow-md border-4 border-white"> -->
+                        <img src="https://www.connectcare.ie/logos/profile/limage-62-446-photo.png" alt="Transport & Mobility Consultants Logo" class="w-24 h-24 rounded-full mb-4 shadow-md border-4 border-white">
+                        <h3 class="text-xl font-bold mb-2 text-text-primary">Modern Mobility</h3>
+                        <p class="text-text-secondary member-content ">Welcome to Modern Mobility. Modern Mobility was formed with a vision of providing quality stairlift products and mobility repair services for customers in Dublin and nationwide throughout Ireland.</p>
+                        <a href="https://www.connectcare.ie/co-kildare/product-service-categories/modern-mobility" class="mt-6 font-semibold text-brand-teal-dark hover:underline">View Profile <i class="fa-solid fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                    <!-- Member Card 5: Battery World -->
+                    <div class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col text-center items-center" data-aos="fade-up" data-aos-delay="500">
+                        <!-- <img src="https://placehold.co/100x100/38B2AC/FFFFFF?text=BW" alt="Battery World Logo" class="w-24 h-24 rounded-full mb-4 object-cover shadow-md border-4 border-white"> -->
+                        <img src="https://www.connectcare.ie/logos/profile/limage-112-42-photo.png" alt="Battery World Logo" class="w-24 h-24 rounded-full mb-4 object-cover shadow-md border-4 border-white">
+                        <h3 class="text-xl font-bold mb-2 text-text-primary">IMNDA</h3>
+                        <p class="text-text-secondary member-content ">The Irish Motor Neurone Disease Association (IMNDA, CHY 8510) is the only organisation of its kind in the country. We are dedicated to working on behalf of</p>
+                        <a href="https://www.connectcare.ie/ireland/merchants-quay/relevant-organisations/imnda" class="mt-6 font-semibold text-brand-teal-dark hover:underline">View Profile <i class="fa-solid fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                    <!-- Member Card 6: O'Connor Carroll -->
+                    <div class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col text-center items-center" data-aos="fade-up" data-aos-delay="600">
+                        <!-- <img src="https://placehold.co/100x100/3182CE/FFFFFF?text=OC" alt="O'Connor Carroll Logo" class="w-24 h-24 rounded-full mb-4 object-cover shadow-md border-4 border-white"> -->
+                        <img src="https://www.connectcare.ie/logos/profile/limage-88-319-photo.png" alt="O'Connor Carroll Logo" class="w-24 h-24 rounded-full mb-4 object-cover shadow-md border-4 border-white">
+                        <h3 class="text-xl font-bold mb-2 text-text-primary">BusyBuddys</h3>
+                        <p class="text-text-secondary member-content ">Busybuddys was set up to provide equipment and services for children and young people with a disability. Our goal is a simple one, to provide the best service combined with the best quality products to our customers.</p>
+                        <a href="https://www.connectcare.ie/dublin/product-service-categories/busybuddys" class="mt-6 font-semibold text-brand-teal-dark hover:underline">View Profile <i class="fa-solid fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- As Seen On Section -->
+        <section class="py-12 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h3 class="text-sm font-bold tracking-widest text-text-secondary member-content uppercase aos-init aos-animate" data-aos="fade-up">Trusted By Leading Organisations</h3>
+                <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-y-8 gap-x-8 items-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+                    <!-- SVG Logos for better quality and performance -->
+                    <div class="flex justify-center">
+                                             <img src="https://www.connectcare.ie/logos/profile/limage-109-265-photo.png" alt="Care Advisor Emma" class="w-full lg:h-auto object-cover object-center" onerror="this.onerror=null;this.src='https://placehold.co/800x1000/e0e0e0/333333?text=Image+Not+Found'">
+
+
+                    </div>
+                    <div class="flex justify-center">   
+                        <img src="https://www.connectcare.ie/logos/profile/limage-111-310-photo.png" alt="Care Advisor Emma" class="w-full lg:h-auto object-cover object-center" onerror="this.onerror=null;this.src='https://placehold.co/800x1000/e0e0e0/333333?text=Image+Not+Found'">
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="https://www.connectcare.ie/logos/profile/limage-104-450-photo.png" alt="Care Advisor Emma" class="w-full lg:h-auto object-cover object-center" onerror="this.onerror=null;this.src='https://placehold.co/800x1000/e0e0e0/333333?text=Image+Not+Found'">
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="https://www.connectcare.ie/logos/profile/limage-110-277-photo.png" alt="Care Advisor Emma" class="w-full lg:h-auto object-cover object-center" onerror="this.onerror=null;this.src='https://placehold.co/800x1000/e0e0e0/333333?text=Image+Not+Found'">
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="https://www.connectcare.ie/logos/profile/limage-109-265-photo.png" alt="Care Advisor Emma" class="w-full lg:h-auto object-cover object-center" onerror="this.onerror=null;this.src='https://placehold.co/800x1000/e0e0e0/333333?text=Image+Not+Found'">
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="https://www.connectcare.ie/logos/profile/limage-106-135-photo.png" alt="Care Advisor Emma" class="w-full lg:h-auto object-cover object-center" onerror="this.onerror=null;this.src='https://placehold.co/800x1000/e0e0e0/333333?text=Image+Not+Found'">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- Featured Communities -->
+        <section class="py-16 sm:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-text-primary">Featured Care Experiences</h2>
+                    <p class="mt-4 text-lg text-text-secondary member-content max-w-3xl mx-auto">These verified care experiences are shared by real families and individuals. Explore their stories to understand the quality of service, compassion, and support provided by our trusted care partners.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Community Card 1 -->
+                    <div class="community-card bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col" data-aos="zoom-in-up">
+                        <img src="https://restaurants.directoryup.com/images/connectcare/AnnieMcGregor.jpg" alt="Exterior of Atria Kew Gardens" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/750x450/e0e0e0/333333?text=Image+Not+Found'">
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-bold text-text-primary">Annie McGregor <i class="fa-solid fa-shield-halved text-blue-500 ml-1 text-lg" title="Verified Provider"></i></h3>
+                            <p class="text-sm text-text-secondary member-content mt-1"><i class="fa-solid fa-map-marker-alt fa-map-marker-custom"></i> Belfast,Ireland</p>
+                            <p class="text-sm text-text-secondary member-content mt-1 border-l-4 border-brand-teal member-content-review">
+                                Connected Health has the best carers, they are very personable and courteous always going the extra mile.
+                            </p>
+                            <div class="flex items-center mt-3 text-yellow-500">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                <!-- <span class="text-text-secondary member-content text-sm ml-2">(48 reviews)</span> -->
+                            </div>
+                            <ul class="mt-4 space-y-2 text-sm text-text-secondary member-content">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-teal-dark w-5"></i><span>Home Care Assistance</span></li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-teal-dark w-5"></i><span>Compassionate & Personable Carers</span></li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-teal-dark w-5"></i><span>Personalized Visit Schedule</span></li>
+                            </ul>
+                        </div>
+                        <div class="px-6 pb-6 border-t border-gray-100 mt-4 pt-4 flex justify-between items-center bg-gray-50 box-last-content">
+                            <p class="text-lg font-bold text-text-primary price-blur">$4,995+/mo</p>
+                            <a href="#" class="get-pricing-btn font-semibold text-brand-teal-dark hover:underline">Get Pricing</a>
+                        </div>
+                    </div>
+                    <!-- Community Card 2 -->
+                    <div class="community-card bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col" data-aos="zoom-in-up" data-aos-delay="100">
+                        <img src="https://restaurants.directoryup.com/images/connectcare/William-Kelly_11zon.jpg" alt="Courtyard of The Village at The Woodlands" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/750x450/e0e0e0/333333?text=Image+Not+Found'">
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-bold text-text-primary">William Kelly <i class="fa-solid fa-shield-halved text-blue-500 ml-1 text-lg" title="Verified Provider"></i></h3>
+                            <p class="text-sm text-text-secondary member-content mt-1"><i class="fa-solid fa-map-marker-alt fa-map-marker-custom"></i> Dublin, Ireland</p>
+                            <p class="text-sm text-text-secondary member-content mt-1 border-l-4 border-brand-teal member-content-review">
+                                The carers brighten my day, they are more than carers they are my friends. They always go above and beyond and I’d be lost without them.
+                            </p>
+
+                            <div class="flex items-center mt-3 text-yellow-500">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                <!-- <span class="text-text-secondary member-content text-sm ml-2">(50 reviews)</span> -->
+                            </div>
+                            <ul class="mt-4 space-y-2 text-sm text-text-secondary member-content">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-teal-dark w-5"></i><span>Home Care Assistance</span></li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-teal-dark w-5"></i><span>Compassionate & Personable Carers</span></li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-teal-dark w-5"></i><span>Personalized Visit Schedule</span></li>
+                            </ul>
+                        </div>
+                        <div class="px-6 pb-6 border-t border-gray-100 mt-4 pt-4 flex justify-between items-center bg-gray-50 box-last-content">
+                            <p class="text-lg font-bold text-text-primary price-blur">$5,200+/mo</p>
+                            <a href="#" class="get-pricing-btn font-semibold text-brand-teal-dark hover:underline">Get Pricing</a>
+                        </div>
+                    </div>
+                    <!-- Community Card 3 -->
+                    <div class="community-card bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col" data-aos="zoom-in-up" data-aos-delay="200">
+                        <img src="https://restaurants.directoryup.com/images/connectcare/Philip-Murphy_11zon123_11zon.jpg" alt="Resident room at Springtree Senior Living" class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/750x450/e0e0e0/333333?text=Image+Not+Found'">
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-bold text-text-primary">Philip Murphy <i class="fa-solid fa-shield-halved text-blue-500 ml-1 text-lg" title="Verified Provider"></i></h3>
+                            <p class="text-sm text-text-secondary member-content mt-1"><i class="fa-solid fa-map-marker-alt fa-map-marker-custom"></i> Galway, Ireland</p>
+                            <p class="text-sm text-text-secondary member-content mt-1 border-l-4 border-brand-teal member-content-review">
+                                The care assistants are kind, helpful and very understanding of my needs, I look forward to their visits.
+                            </p>
+                            <div class="flex items-center mt-3 text-yellow-500">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                <!-- <span class="text-text-secondary member-content text-sm ml-2">(160 reviews)</span> -->
+                            </div>
+                            <ul class="mt-4 space-y-2 text-sm text-text-secondary member-content">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-teal-dark w-5"></i><span>Home Care Assistance</span></li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-teal-dark w-5"></i><span>Compassionate & Personable Carers</span></li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-teal-dark w-5"></i><span>Personalized Visit Schedule</span></li>
+                            </ul>
+                        </div>
+                        <div class="px-6 pb-6 border-t border-gray-100 mt-4 pt-4 flex justify-between items-center bg-gray-50 box-last-content">
+                            <p class="text-lg font-bold text-text-primary price-blur">$4,800+/mo</p>
+                            <a href="#" class="get-pricing-btn font-semibold text-brand-teal-dark hover:underline">Get Pricing</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW Financial Support Section -->
+        <section class="py-16 sm:py-24 bg-brand-gray-50" >
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-text-primary"> Hear from Families & Clients</h2>
+                    <p class="mt-4 text-lg text-text-secondary member-content max-w-3xl mx-auto">Real stories from those who rely on our services — discover why individuals and families trust our dedicated care partners to deliver compassionate, professional support across Ireland.</p>
+                </div>
+                <div class="space-y-16">
+                    <!-- Carer's Allowance Grant -->
+                    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12" data-aos="fade-right">
+                        <div class="w-full md:w-1/2">
+                            <h3 class="text-2xl font-bold text-text-primary">Carer's Allowance Grant</h3>
+                            <p class="mt-4 text-text-secondary member-content">The Carer's Allowance is a weekly social welfare payment to people who provide full-time care to someone because of their age, disability, or illness (including mental illness).</p>
+                            <ul class="mt-4 space-y-2 text-text-secondary member-content">
+                                <li class="flex items-start"><i class="fa-solid fa-circle-info text-brand-teal-dark w-5 mt-1 mr-2"></i><span>This payment recognizes the vital role of carers in our communities.</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-info text-brand-teal-dark w-5 mt-1 mr-2"></i><span>Eligibility depends on your means and the level of care you provide.</span></li>
+                            </ul>
+                            <a href="https://www.connectcare.ie/carersallowance" class="mt-6 inline-block bg-brand-blue-dark text-white font-bold py-3 px-6 rounded-md hover:bg-brand-blue-dark/90 transition-all shadow hover:shadow-lg bg-brand-blue-dark-custom">Learn about Carer's Allowance</a>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <img src="https://restaurants.directoryup.com/images/connectcare/conncetcare1_11zon.jpg" alt="A smiling carer assisting a senior woman." class="rounded-lg shadow-xl w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/800x600/e0e0e0/333333?text=Image+Not+Found'">
+                        </div>
+                    </div>
+                    <!-- Fair Deal Scheme -->
+                    <div class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12" data-aos="fade-left">
+                        <div class="w-full md:w-1/2">
+                            <h3 class="text-2xl font-bold text-text-primary">What is the Fair Deal Scheme?</h3>
+                            <p class="mt-4 text-text-secondary member-content">You can apply for financial support to help pay for the cost of care in a nursing home through the Nursing Homes Support Scheme, also known as the Fair Deal scheme.</p>
+                             <ul class="mt-4 space-y-2 text-text-secondary member-content">
+                                <li class="flex items-start"><i class="fa-solid fa-circle-info text-brand-teal-dark w-5 mt-1 mr-2"></i><span>The scheme is designed to make nursing home care more affordable for everyone.</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-circle-info text-brand-teal-dark w-5 mt-1 mr-2"></i><span>Your contribution is based on an assessment of your income and assets.</span></li>
+                            </ul>
+                            <a href="https://www.connectcare.ie/fairdealscheme" class="mt-6 inline-block bg-brand-blue-dark text-white font-bold py-3 px-6 rounded-md hover:bg-brand-blue-dark-dark/90 transition-all shadow hover:shadow-lg bg-brand-blue-dark-custom">Find out about the Fair Deal</a>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <img src="https://restaurants.directoryup.com/images/connectcare/conncetcare2_2_11zon.jpg" alt="A group of seniors in a comfortable care facility common room." class="rounded-lg shadow-xl w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/800x600/e0e0e0/333333?text=Image+Not+Found'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        
+        <!-- Latest Articles & Advice -->
+        <section class="py-16 sm:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-text-primary">Latest Articles & Advice</h2>
+                    <p class="mt-4 text-lg text-text-secondary member-content max-w-3xl mx-auto">Expert guidance to help you navigate your care journey with confidence.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Article Card 1 -->
+                    <a href="#" class="block bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2" data-aos="zoom-in-up">
+                        <img src="https://restaurants.directoryup.com/images/connectcare/FINANCIAL-ASSISTANCE_11zon.jpg" alt="Financial planning documents and a calculator." class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/800x600/e0e0e0/333333?text=Image+Not+Found'">
+                        <div class="p-6">
+                            <span class="text-sm text-brand-teal-dark font-semibold">FINANCIAL ASSISTANCE</span>
+                            <h3 class="text-xl font-semibold mt-2 text-text-primary">A Guide to Grants for Home Modifications</h3>
+                            <p class="mt-2 text-text-secondary member-content">Learn how you can get financial help to make a home more accessible and safer.</p>
+                        </div>
+                    </a>
+                    <!-- Article Card 2 -->
+                    <a href="#" class="block bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2" data-aos="zoom-in-up" data-aos-delay="100">
+                        <img src="https://restaurants.directoryup.com/images/connectcare/HOMECARE_11zon.jpg" alt="Caregiver supporting a senior with a walker." class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/800x600/e0e0e0/333333?text=Image+Not+Found'">
+                        <div class="p-6">
+                            <span class="text-sm text-brand-teal-dark font-semibold">HOMECARE</span>
+                            <h3 class="text-xl font-semibold mt-2 text-text-primary">Choosing the Right In-Home Care Service</h3>
+                            <p class="mt-2 text-text-secondary member-content">What to look for when selecting a professional caregiver for your loved one.</p>
+                        </div>
+                    </a>
+                    <!-- Article Card 3 -->
+                    <a href="#" class="block bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2" data-aos="zoom-in-up" data-aos-delay="200">
+                        <img src="https://restaurants.directoryup.com/images/connectcare/ADVICE--SUPPORT_11zon.jpg" alt="Senior woman smiling while using a tablet." class="w-full h-56 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/800x600/e0e0e0/333333?text=Image+Not+Found'">
+                        <div class="p-6">
+                            <span class="text-sm text-brand-teal-dark font-semibold">ADVICE & SUPPORT</span>
+                            <h3 class="text-xl font-semibold mt-2 text-text-primary">Staying Connected: Tech for Seniors</h3>
+                            <p class="mt-2 text-text-secondary member-content">Discover tools and apps that help seniors stay engaged with family and friends.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Family Advisors Section -->
+        <section class="py-16 sm:py-24 bg-brand-gray-50" style="display: none;">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-text-primary">Care Advisors You Can Trust</h2>
+                    <p class="mt-4 text-lg text-text-secondary member-content max-w-3xl mx-auto">Our Care Advisors set us apart with their expertise and passion, going above and beyond to help everyone they speak with.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col lg:flex-row" data-aos="fade-up">
+                    <img src="https://www.connectcare.ie/images/pexel-photo-339620-small.jpeg" alt="Care Advisor Jenny" class="w-full lg:w-1/3 h-80 lg:h-auto object-cover object-center" onerror="this.onerror=null;this.src='https://placehold.co/800x1000/e0e0e0/333333?text=Image+Not+Found'">
+                    <div class="p-8 lg:p-12 flex-1">
+                        <h3 class="text-2xl font-bold">Jenny</h3>
+                        <h4 class="text-md font-semibold text-brand-teal-dark">Senior Care Advisor, 6 years</h4>
+                        <p class="mt-4 text-text-secondary member-content">"There is great satisfaction when I find the right services for a senior in need and I give a family peace of mind. I'm passionate about the work I do. At the end of every day, I know that I am making a difference in a family's life."</p>
+                        <div class="mt-6 bg-brand-gray-100 p-6 rounded-lg border-l-4 border-brand-teal shadow-inner">
+                            <blockquote class="text-text-secondary member-content italic">"Jenny was 100 times more helpful than what we could have expected. Amazed at the wealth of knowledge and support... Thank you so much for making this difficult task easy."</blockquote>
+                            <footer class="mt-4 flex items-center">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Scott" class="w-12 h-12 rounded-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/48x48/e0e0e0/333333?text=S'">
+                                <div class="ml-4">
+                                    <p class="font-bold text-text-primary">Scott</p>
+                                    <p class="text-sm text-text-secondary member-content">Care seeker in July 2025</p>
+                                </div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="py-16 sm:py-24 bg-brand-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 aos-init aos-animate" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-text-primary">Care Advisors Who Listen & Understand</h2>
+                    <p class="mt-4 text-lg text-text-secondary member-content max-w-3xl mx-auto">Our experienced Care Advisors are here to offer guidance, reassurance, and tailored solutions to help you or your loved ones navigate care with confidence.</p>
+                </div>
+        
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col lg:flex-row aos-init aos-animate" data-aos="fade-up">
+                    <!-- <img src="https://www.connectcare.ie/images/pexel-photo-339620-small.jpeg" alt="Care Advisor Emma" class="w-full lg:w-1/3 h-80 lg:h-auto object-cover object-center" onerror="this.onerror=null;this.src='https://placehold.co/800x1000/e0e0e0/333333?text=Image+Not+Found'"> -->
+                    <img src="https://images.pexels.com/photos/8376277/pexels-photo-8376277.jpeg" alt="Care Advisor Emma" class="w-full lg:w-1/3 h-80 lg:h-auto object-cover object-center" onerror="this.onerror=null;this.src='https://placehold.co/800x1000/e0e0e0/333333?text=Image+Not+Found'">
+
+                    <div class="p-8 lg:p-12 flex-1">
+                        <h3 class="text-2xl font-bold">Emma</h3>
+                        <h4 class="text-md font-semibold text-brand-teal-dark">Senior Care Advisor, 8 Years Supporting Families</h4>
+                        <p class="mt-4 text-text-secondary member-content">"Every day I work with families navigating complex decisions, I’m reminded how vital our work is. My role is to listen first, understand fully, and ensure every person feels supported throughout their journey."</p>
+        
+                        <div class="mt-6 bg-brand-gray-100 p-6 rounded-lg border-l-4 border-brand-teal shadow-inner">
+                            <blockquote class="text-text-secondary member-content italic">"Emma took the time to understand our needs and gave us so much peace of mind. The advice was clear, compassionate, and extremely helpful — it made such a difference during a difficult time."</blockquote>
+                            <footer class="mt-4 flex items-center">
+                                <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Elaine" class="w-12 h-12 rounded-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/48x48/e0e0e0/333333?text=E'">
+                                <div class="ml-4">
+                                    <p class="font-bold text-text-primary">Elaine</p>
+                                    <p class="text-sm text-text-secondary member-content">Family Member, June 2025</p>
+                                </div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Write a Review Section -->
+        <!-- <section class="bg-white py-16">
+            <div class="container mx-auto px-6">
+                <div class="bg-brand-blue-light rounded-lg p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6" data-aos="zoom-in">
+                    <div class="text-center md:text-left">
+                        <h3 class="text-2xl lg:text-3xl font-bold text-brand-blue-dark">Share a review to help others like you.</h3>
+                        <p class="mt-2 text-text-secondary member-content max-w-2xl">Firsthand reviews provide immense value to seniors and their families as they navigate their search.</p>
+                    </div>
+                    <a href="#" class="bg-white text-brand-blue-dark font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition-all shadow-md whitespace-nowrap hover:scale-105 transform">Write a Review</a>
+                </div>
+            </div>
+        </section> -->
+
+    </main>
+
+    <!-- Footer -->
+    <!-- <footer class="bg-brand-gray-900 text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+                <div class="col-span-2 md:col-span-1">
+                    <h3 class="text-2xl font-bold text-brand-teal">
+                        <img id="website_logo" width="899" height="408" src="https://www.connectcare.ie/images/LogoFINAL.png" alt="ConnectCare">
+                    </h3>
+                    <p class="mt-4 text-gray-400 text-sm">Your compassionate guide to care.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold tracking-wider uppercase text-gray-300">Mobility</h4>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Wheelchairs</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Stairlifts</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold tracking-wider uppercase text-gray-300">Homecare</h4>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">In-Home Care</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Home Health</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold tracking-wider uppercase text-gray-300">Nursing Homes</h4>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Assisted Living</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Residential Care</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold tracking-wider uppercase text-gray-300">Company</h4>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col sm:flex-row justify-between items-center">
+                <p class="text-gray-500">&copy; 2025 ConnectCare. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0">
+                    <a href="#" class="text-gray-500 hover:text-white"><i class="fab fa-facebook text-xl"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-white"><i class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-white"><i class="fab fa-linkedin text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer> -->
+
+    <div class="footer" style="background-color: #192a56;padding-top: 3rem;padding-bottom: 3rem;">
+        <div class="container" style="margin: 0 auto;">
+          <div class="row">
+            <ul class="footer_menu grid grid-cols-2 sm-text-center grid-cols-5 gap-y-8">
+              <div class="col-span-2 md:col-span-1">
+                <h3 class="text-2xl font-bold text-brand-teal">
+                  <!-- ConnectCare -->
+                  <img id="website_logo" width="899" height="408" src="https://www.connectcare.ie/images/LogoFINAL.png" alt="ConnectCare">
+                </h3>
+                <p class="mt-4 text-gray-400 text-sm">Your compassionate guide to care.</p>
+              </div>
+              <li class="col-md-2 col-md-offset-1 ">
+                <span id="link159" class="head bold"> Website</span>
+                <ul>
+                  <li class="">
+                    <a href="/about" id="link160">About Us</a>
+                  </li>
+                  <li class="">
+                    <a href="/join" id="link161">List Your Company</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="col-md-2">
+                <span id="link162" class="head bold"> Search</span>
+                <ul>
+                  <li class="">
+                    <a href="/categories" id="link163">Browse Categories</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="col-md-2">
+                <span id="link165" class="head bold"> Support</span>
+                <ul>
+                  <li class="">
+                    <a href="/login" id="link166">Member Login</a>
+                  </li>
+                  <li class="">
+                    <a href="/about/contact" id="link167">Contact Us</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="col-md-12 clearfix">
+                <span id="link226"> &nbsp;</span>
+              </li>
+              <li class="col-md-5 vpad vmargin">
+                <span id="link211">
+                  <div class="list-social-links">
+                    <a class="network-icon contact" href="/about/contact" title="Contact Us ConnectCare.ie">
+                      <i class="fa fa-envelope"></i>
+                    </a>
+                    <a class="network-icon facebook" href="https://www.facebook.com/profile.php?id=61575701285596" target="_blank" title="ConnectCare.ie Facebook">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <div class="clearfix"></div>
+                  </div>
+                </span>
+              </li>
+              <li class="vpad" style="float: right;position: relative;right: -200%;">
+                <a href="/join" id="link212" class="btn btn_footer_get_listed btn-lg btn-block center sm-block" style="white-space:normal;font-weight: 700;">List Your Business Today <i class="fa fa-chevron-right lmargin align-middle hidden-xs"></i>
+                </a>
+              </li>
+              <!-- <li class="col-md-12 clearfix vmargin text-center">
+                <span id="link313"> &nbsp;</span>
+                <ul>
+                  <li class="btn-lg font-sm  novpad  norpad inline-block">
+                    <span id="link315"> © 2025</span>
+                  </li>
+                  <li class="font-sm inline-block hpad">
+                    <a href="/" id="link314" title="ConnectCare.ie">ConnectCare.ie</a>
+                  </li>
+                  <li class="font-sm inline-block">
+                    <span id="link318"> All Rights Reserved</span>
+                  </li>
+                  <li class="font-sm inline-block hpad">
+                    <a href="/about/terms" id="link316" title="">Terms of Use</a>
+                  </li>
+                  <li class="font-sm inline-block">
+                    <a href="/about/privacy" id="link317" title="">Privacy Policy</a>
+                  </li>
+                </ul>
+              </li> -->
+            </ul>
+                <li class="col-md-12 clearfix vmargin text-center footer_menu-1">
+                    <!-- <span id="link313"> &nbsp;</span> -->
+                    <ul>
+                    <li class="btn-lg font-sm  novpad  norpad inline-block">
+                        <span id="link315"> © 2025</span>
+                    </li>
+                    <li class="font-sm inline-block hpad">
+                        <a href="/" id="link314" title="ConnectCare.ie">ConnectCare.ie</a>
+                    </li>
+                    <li class="font-sm inline-block">
+                        <span id="link318"> All Rights Reserved</span>
+                    </li>
+                    <li class="font-sm inline-block hpad">
+                        <a href="/about/terms" id="link316" title="">Terms of Use</a>
+                    </li>
+                    <li class="font-sm inline-block">
+                        <a href="/about/privacy" id="link317" title="">Privacy Policy</a>
+                    </li>
+                    </ul>
+                </li>
+          </div>
+        </div>
+      </div>
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+        });
+
+        // Mobile Menu Logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('sidebar-overlay');
+
+        function openMenu() {
+            overlay.classList.remove('hidden');
+            mobileMenu.classList.remove('-translate-x-full');
+        }
+
+        function closeMenu() {
+            overlay.classList.add('hidden');
+            mobileMenu.classList.add('-translate-x-full');
+        }
+
+        mobileMenuButton.addEventListener('click', openMenu);
+        closeMenuButton.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+    </script>
+
+</body>
+</html>
